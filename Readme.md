@@ -1,14 +1,14 @@
-FunctionsAndErrors Solidity Contract
+![image](https://github.com/rallpphh/module1_Functions-and-Errors---ETH-AVAX/assets/138186886/ef1111b9-565d-4cda-82e3-7dc1dfb97f95)**FunctionsAndErrors Solidity Contract**
 
 This is a simple Solidity contract named `FunctionsAndErrors` that allows an owner to deposit and withdraw Ether, check the balance, and manage age verification.
 
-Contract Overview
+**Contract Overview**
 
 Owner: The address that deploys the contract becomes the owner.
 Balance: Tracks the Ether balance of the contract.
 Age: Stores the age of the owner or user and includes a check for whether the age indicates adulthood (18 years or older).
 
- Functions
+** Functions**
 
 deposit(): Allows anyone to deposit Ether into the contract. The deposit amount must be greater than 0.
 withdraw(uint256 amount): Allows only the owner to withdraw a specified amount of Ether from the contract. The amount must be greater than 0 and cannot exceed the contract's balance.
@@ -16,18 +16,18 @@ checkBalance(): Allows only the owner to check the contract's balance.
 isAdult(): Returns `true` if the age is 18 or older, otherwise `false`.
 setAge(uint256 _age): Allows only the owner to set a new age, which must be greater than 0.
 
-Errors and Assertions
+**Errors and Assertions**
 
 The contract includes `require` statements to ensure conditions are met before proceeding with function execution.
 The `withdraw` function includes an `assert` to ensure the withdrawal amount does not exceed the balance.
 The `withdraw` function reverts with a custom message, simulating an error after the balance deduction.
 
-Deployment and Usage
+**Deployment and Usage**
 
 rerequisites
 Remix IDE: An online Solidity IDE available at [Remix IDE](https://remix.ethereum.org/).
 
-Steps to Deploy
+**Steps to Deploy**
 
 1. Open Remix IDE:
     Navigate to [Remix IDE](https://remix.ethereum.org/).
@@ -39,7 +39,7 @@ Steps to Deploy
 3. Copy and Paste the Contract Code:
     Copy the following Solidity contract code and paste it into the newly created file:
 
-solidity
+**Solidity**
 
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.18;
@@ -84,6 +84,6 @@ contract FunctionsAndErrors {
     }
 }
 
-Author 
+**Author **
 
 Metacrafter ralph
