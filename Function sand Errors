@@ -1,46 +1,31 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.18;
 
-contract FunctionsAndErrors {
-    address public owner;
-    uint256 public balance = 50;
-    uint256 public age;
+contract My_Monthly_Allowances {
+    address public wallet;
+    uint256 public monthlyAllowance = 5000; // initial monthly allowance
 
-    constructor(uint256 _age) {
-        require(_age > 0, "Age must be greater than 0");
-        owner = msg.sender;
-        age = _age;
+    constructor() {
+        wallet = msg.sender;
     }
 
-    function deposit() public payable {
-        require(msg.value > 0, "Deposit amount should be greater than 0");
-
-        balance += msg.value;
+    function addallowance(uint256 _value) public payable {
+      assert(_value <= monthlyAllowance);
+       require(_value > 1000, "Add Allowance value should be greater than 1000");
+        monthlyAllowance <= 1000;
     }
 
-    function withdraw(uint256 amount) public {
-        assert(amount <= balance);
+    function DailyExpenses(uint256 _value) public {
+        assert(_value <= monthlyAllowance);
+        require(_value > 100, "Daily Expenses value should be greater than 80");
 
-        require(msg.sender == owner, "Only the contract owner can withdraw");
-        require(amount > 0, "Withdrawal amount should be greater than 0");
-
-        balance -= amount;
-
-        revert("Withdrawal successful, but custom error message");
+        monthlyAllowance -= _value;
     }
 
-    function checkBalance() public view returns (uint256) {
-        require(msg.sender == owner, "Only the contract owner can check the balance");
-        return balance;
+    function updateMonthlyAllowance(uint256 newAllowance) public {
+        require(msg.sender == wallet, "Only the contract owner can update the monthly allowance");
+        monthlyAllowance = newAllowance;
     }
 
-    function isAdult() public view returns (bool) {
-        return age >= 18;
-    }
-
-    function setAge(uint256 _age) public {
-        require(msg.sender == owner, "Only the contract owner can set the age");
-        require(_age > 0, "Age must be greater than 0");
-        age = _age;
-    }
 }
+
