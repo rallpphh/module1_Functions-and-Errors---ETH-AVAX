@@ -47,8 +47,8 @@ contract My_Monthly_Allowances {
 
     function addallowance(uint256 _value) public payable {
         assert(_value <= monthlyAllowance);
-        require(_value > 1000, "Add Allowance value should be greater than 1000");
-        monthlyAllowance <= 1000;
+        require(_value > 500, "Add Allowance value should be greater than 500");
+        monthlyAllowance += 1000;
     }
 
     function DailyExpenses(uint256 _value) public {
