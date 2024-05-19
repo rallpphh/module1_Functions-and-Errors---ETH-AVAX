@@ -53,7 +53,7 @@ contract My_Monthly_Allowances {
 
     function DailyExpenses(uint256 _value) public {
         assert(_value <= monthlyAllowance);
-        require(_value > 100, "Daily Expenses value should be greater than 80");
+        require(_value > 100, "Daily Expenses value should be greater than 100");
         monthlyAllowance -= _value;
     }
 
