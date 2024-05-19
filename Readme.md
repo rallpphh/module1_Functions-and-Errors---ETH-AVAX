@@ -1,89 +1,66 @@
-# FunctionsAndErrors Solidity Contract
-
-This is a simple Solidity contract named `FunctionsAndErrors` that allows an owner to deposit and withdraw Ether, check the balance, and manage age verification.
+# My Monthly Allowances Solidity Contract
+This Solidity contract, named My_Monthly_Allowances, is designed to manage a monthly allowance for an address. The contract allows the owner to add allowances, record daily expenses, and update the monthly allowance.
 
 # Contract Overview
+Wallet: The address that deploys the contract becomes the wallet address (owner).
 
-Owner: The address that deploys the contract becomes the owner.
-Balance: Tracks the Ether balance of the contract.
-Age: Stores the age of the owner or user and includes a check for whether the age indicates adulthood (18 years or older).
+Monthly Allowance: Tracks the monthly allowance amount which can be updated by the owner.
 
 # Functions
+addAllowance(uint256 _value): Allows the owner to add to the monthly allowance. The added value must be greater than 1000 and not exceed the current monthly allowance.
 
-deposit(): Allows anyone to deposit Ether into the contract. The deposit amount must be greater than 0.
-withdraw(uint256 amount): Allows only the owner to withdraw a specified amount of Ether from the contract. The amount must be greater than 0 and cannot exceed the contract's balance.
-checkBalance(): Allows only the owner to check the contract's balance.
-isAdult(): Returns `true` if the age is 18 or older, otherwise `false`.
-setAge(uint256 _age): Allows only the owner to set a new age, which must be greater than 0.
+DailyExpenses(uint256 _value): Records daily expenses deducted from the monthly allowance. The expense value must be greater than 100 and not exceed the current monthly allowance.
+
+updateMonthlyAllowance(uint256 newAllowance): Allows only the owner to update the monthly allowance to a new value.
 
 # Errors and Assertions
+The contract includes require statements to ensure that conditions are met before proceeding with function execution:
 
-The contract includes `require` statements to ensure conditions are met before proceeding with function execution.
-The `withdraw` function includes an `assert` to ensure the withdrawal amount does not exceed the balance.
-The `withdraw` function reverts with a custom message, simulating an error after the balance deduction.
+addAllowance requires the value to be greater than 1000 and asserts it does not exceed the monthly allowance.
+DailyExpenses requires the expense value to be greater than 100 and asserts it does not exceed the monthly allowance.
+Deployment and Usage
+Prerequisites
+Remix IDE: An online Solidity IDE available at Remix IDE.
+Steps to Deploy
+Open Remix IDE:
 
-# Deployment and Usage
+Navigate to Remix IDE.
+Create a New File:
 
-rerequisites
-Remix IDE: An online Solidity IDE available at [Remix IDE](https://remix.ethereum.org/).
+Click on the + icon to create a new file.
+Name the file My_Monthly_Allowances.sol.
+Copy and Paste the Contract Code:
 
-# Steps to Deploy
-
-1. Open Remix IDE:
-    Navigate to [Remix IDE](https://remix.ethereum.org/).
-
-2. Create a New File:
-    Click on the `+` icon to create a new file.
-    Name the file `FunctionsAndErrors.sol`.
-
-3. Copy and Paste the Contract Code:
-    Copy the following Solidity contract code and paste it into the newly created file:
-
-# Solidity
-
+Copy the following Solidity contract code and paste it into the newly created file:
+solidity
+Copy code
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.18;
 
-contract FunctionsAndErrors {
-    address public owner;
-    uint256 public balance = 50;
-    uint256 public age;
+contract My_Monthly_Allowances {
+    address public wallet;
+    uint256 public monthlyAllowance = 5000; // initial monthly allowance
 
-    constructor(uint256 _age) {
-        require(_age > 0, "Age must be greater than 0");
-        owner = msg.sender;
-        age = _age;
+    constructor() {
+        wallet = msg.sender;
     }
 
-    function deposit() public payable {
-        require(msg.value > 0, "Deposit amount should be greater than 0");
-        balance += msg.value;
+    function addallowance(uint256 _value) public payable {
+        assert(_value <= monthlyAllowance);
+        require(_value > 1000, "Add Allowance value should be greater than 1000");
+        monthlyAllowance <= 1000;
     }
 
-    function withdraw(uint256 amount) public {
-        assert(amount <= balance);
-        require(msg.sender == owner, "Only the contract owner can withdraw");
-        require(amount > 0, "Withdrawal amount should be greater than 0");
-        balance -= amount;
-        revert("Withdrawal successful, but custom error message");
+    function DailyExpenses(uint256 _value) public {
+        assert(_value <= monthlyAllowance);
+        require(_value > 100, "Daily Expenses value should be greater than 80");
+        monthlyAllowance -= _value;
     }
 
-    function checkBalance() public view returns (uint256) {
-        require(msg.sender == owner, "Only the contract owner can check the balance");
-        return balance;
-    }
-
-    function isAdult() public view returns (bool) {
-        return age >= 18;
-    }
-
-    function setAge(uint256 _age) public {
-        require(msg.sender == owner, "Only the contract owner can set the age");
-        require(_age > 0, "Age must be greater than 0");
-        age = _age;
+    function updateMonthlyAllowance(uint256 newAllowance) public {
+        require(msg.sender == wallet, "Only the contract owner can update the monthly allowance");
+        monthlyAllowance = newAllowance;
     }
 }
-
 # Author
-
 Metacrafter ralph
